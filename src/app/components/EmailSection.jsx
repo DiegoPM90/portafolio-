@@ -1,133 +1,105 @@
 "use client";
 import React, { useState } from "react";
-import GithubIcon from "../../../public/github-icon.svg";
-import LinkedinIcon from "../../../public/linkedin-icon.svg";
-import Link from "next/link";
-import Image from "next/image";
+import { firestoreDB } from "../../firebase/config.js";
 
-const EmailSection = () => {
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
+const Form = () => {
+  // Creamos un estado para guardar los datos del formulario
+  const [datos, setDatos] = useState({
+    nombre: "",
+    telefono: "",
+    correo: "",
+    mensaje: "",
+  });
 
+  // Creamos una función para manejar el cambio de los inputs
+  const handleChange = (e) => {
+    // Actualizamos el estado con el valor del input
+    setDatos({
+      ...datos,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Creamos una función, proceso asincrono, para manejar el envío del formulario
   const handleSubmit = async (e) => {
+    // Evitamos el comportamiento por defecto del formulario
     e.preventDefault();
-    const data = {
-      email: e.target.email.value,
-      subject: e.target.subject.value,
-      message: e.target.message.value,
-    };
-    const JSONdata = JSON.stringify(data);
-    const endpoint = "/api/send";
-
-    // Form the request for sending data to the server.
-    const options = {
-      // The method is POST because we are sending data.
-      method: "POST",
-      // Tell the server we're sending JSON.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    };
-
-    const response = await fetch(endpoint, options);
-    const resData = await response.json();
-
-    if (response.status === 200) {
-      console.log("Message sent.");
-      setEmailSubmitted(true);
+    // Intentar conectarse a la colección de bbdd, y agrega nuevo doc
+    try {
+      await firestoreDB.collection("formularioPortafolio").add(datos);
+      alert("Mensaje enviado, te contactaré lo antes posible ;)");
+    } catch (error) {
+      alert("No se pudo enviar el mensaje ;( intentalo nuevamente");
+      console.log(error);
     }
   };
 
   return (
-    <section
-      id="contact"
-      className="grid md:grid-cols-2 my-12 md:my-12 py-24 gap-4 relative"
-    >
-      <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-900 to-transparent rounded-full h-80 w-80 z-0 blur-lg absolute top-3/4 -left-4 transform -translate-x-1/2 -translate-1/2"></div>
-      <div className="z-10">
-        <h5 className="text-xl font-bold text-white my-2">
-          Let&apos;s Connect
-        </h5>
-        <p className="text-[#ADB7BE] mb-4 max-w-md">
-          {" "}
-          I&apos;m currently looking for new opportunities, my inbox is always
-          open. Whether you have a question or just want to say hi, I&apos;ll
-          try my best to get back to you!
-        </p>
-        <div className="socials flex flex-row gap-2">
-          <Link href="github.com">
-            <Image src={GithubIcon} alt="Github Icon" />
-          </Link>
-          <Link href="linkedin.com">
-            <Image src={LinkedinIcon} alt="Linkedin Icon" />
-          </Link>
-        </div>
-      </div>
-      <div>
-        {emailSubmitted ? (
-          <p className="text-green-500 text-sm mt-2">
-            Email sent successfully!
-          </p>
-        ) : (
-          <form className="flex flex-col" onSubmit={handleSubmit}>
-            <div className="mb-6">
-              <label
-                htmlFor="email"
-                className="text-white block mb-2 text-sm font-medium"
-              >
-                Your email
-              </label>
-              <input
-                name="email"
-                type="email"
-                id="email"
-                required
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
-                placeholder="jacob@google.com"
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="subject"
-                className="text-white block text-sm mb-2 font-medium"
-              >
-                Subject
-              </label>
-              <input
-                name="subject"
-                type="text"
-                id="subject"
-                required
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
-                placeholder="Just saying hi"
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="message"
-                className="text-white block text-sm mb-2 font-medium"
-              >
-                Message
-              </label>
-              <textarea
-                name="message"
-                id="message"
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
-                placeholder="Let's talk about..."
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full"
-            >
-              Send Message
-            </button>
-          </form>
-        )}
-      </div>
-    </section>
+    <div className="animate-fade animate-delay-300 grid  justify-items-center w-full">
+      <h1 className="text-white text-4xl font-bold my-5">Hablemos!</h1> 
+      <form
+        className="grid items-center w-full gap-3 row-start-auto sm:w-full sm:ml-16 sm:px-3 shadow-sm"
+        id="form"
+        onSubmit={handleSubmit}
+      >
+        <input
+          className="text-gray-400 px-2 form bg-[#20202a] rounded-md focus:outline-none"
+          type="text"
+          id="nombre"
+          name="nombre"
+          required
+          value={datos.nombre}
+          onChange={handleChange}
+          placeholder="Nombre"
+          autoComplete="name"
+          minLength={2}
+          maxLength={45}
+        />
+
+        <input
+          className="text-gray-400 px-2 bg-[#20202a] rounded-md focus:outline-none "
+          type="tel"
+          id="telefono"
+          name="telefono"
+          value={datos.telefono}
+          onChange={handleChange}
+          placeholder="Telefono"
+          maxLength={12}
+          minLength={9}
+          pattern="\d*"
+        />
+        <input
+          className="text-gray-400 px-2 bg-[#20202a] rounded-md focus:outline-none "
+          type="email"
+          id="correo"
+          name="correo"
+          required
+          value={datos.correo}
+          onChange={handleChange}
+          placeholder="Correo suco@rreo.cl"
+          autoComplete="email"
+        />
+        <input
+          className="text-gray-400 px-2 bg-[#20202a] rounded-md h-24 focus:outline-none items-start "
+          type="text"
+          id="mensaje"
+          name="mensaje"
+          required
+          value={datos.mensaje}
+          onChange={handleChange}
+          placeholder="Aqui tu mensaje"
+          minLength={10}
+          maxLength={1000}
+        />
+        <button
+          className="h-8 mt-6 bg-gradient-to-r from-primary-400 to-secondary-500 rounded-md transition-colors hover:bg-lime-400 "
+          type="submit"
+        >
+          Enviar
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default EmailSection;
+export default Form;

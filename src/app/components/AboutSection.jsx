@@ -5,43 +5,64 @@ import TabButton from "./TabButton";
 
 const TAB_DATA = [
   {
-    title: "Skills",
-    id: "skills",
+    title: "Habilidades",
+    id: "Habilidades",
     content: (
       <ul className="list-disc pl-2">
         <li>Node.js</li>
         <li>Express</li>
-        <li>PostgreSQL</li>
-        <li>Sequelize</li>
+        <li>MongoDB</li>
         <li>JavaScript</li>
         <li>React</li>
+        <li>Nextjs</li>
       </ul>
     ),
   },
   {
-    title: "Education",
-    id: "education",
+    title: "Educación",
+    id: "Educación",
     content: (
       <ul className="list-disc pl-2">
-        <li>Fullstack Academy of Code</li>
-        <li>University of California, Santa Cruz</li>
+        <li>BootCamp Desarrollo Web FullStack Universidad del Desarrollo</li>
       </ul>
     ),
   },
   {
-    title: "Certifications",
-    id: "certifications",
+    title: "Certificaciones",
+    id: "Certificaciones",
     content: (
-      <ul className="list-disc pl-2">
-        <li>AWS Cloud Practitioner</li>
-        <li>Google Professional Cloud Developer</li>
+      <ul className="list-disc pl-2 flex flex-wrap">
+        <li className="w-1/3">
+          <Image 
+            src="/images/projects/api.png"
+            alt="Certification 3"
+            width={200}
+            height={200}
+          />
+        </li>
+        <li className="w-1/3">
+          <Image
+            src="/images/projects/html-css.png"
+            alt="Certification 3"
+            width={200}
+            height={200}
+          />
+        </li>
+        <li className="w-1/3">
+          <Image
+            src="/images/projects/crud.png"
+            alt="Certification 3"
+            width={200}
+            height={200}
+          />
+        </li>
       </ul>
     ),
   },
 ];
 
 const AboutSection = () => {
-  const [tab, setTab] = useState("skills");
+  const [tab, setTab] = useState("Habilidades");
   const [isPending, startTransition] = useTransition();
 
   const handleTabChange = (id) => {
@@ -55,36 +76,44 @@ const AboutSection = () => {
       <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
         <Image src="/images/about-image.png" width={500} height={500} />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
-          <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Acerca de mí</h2>
           <p className="text-base lg:text-lg">
-            I am a full stack web developer with a passion for creating
-            interactive and responsive web applications. I have experience
-            working with JavaScript, React, Redux, Node.js, Express, PostgreSQL,
-            Sequelize, HTML, CSS, and Git. I am a quick learner and I am always
-            looking to expand my knowledge and skill set. I am a team player and
-            I am excited to work with others to create amazing applications.
+            Soy un apasionado desarrollador web full stack con experiencia en
+            JavaScript, React, Node.js, MongoDB, Express, FireBase , HTML y CSS.
+            Aprendo rápido y siempre busco ampliar mis conocimientos y
+            habilidades. Trabajo en equipo y me entusiasma trabajar con otros
+            para crear aplicaciones increíbles. En términos de habilidades
+            interpersonales, me enorgullezco de mis sólidas habilidades de
+            comunicación, adaptabilidad y capacidad para trabajar bien bajo
+            presión. También aprendo continuamente, siempre busco nuevas
+            oportunidades para mejorar mis habilidades y mantenerme actualizado
+            con las últimas tendencias de la industria. Me siento cómodo
+            trabajando en entornos de ritmo rápido y siempre estoy dispuesto a
+            asumir nuevos proyectos y responsabilidades. En general, soy un
+            desarrollador dedicado y entusiasta que está comprometido a realizar
+            un trabajo de alta calidad y superar las expectativas.
           </p>
           <div className="flex flex-row justify-start mt-8">
             <TabButton
-              selectTab={() => handleTabChange("skills")}
-              active={tab === "skills"}
+              selectTab={() => handleTabChange("Habilidades")}
+              active={tab === "Habilidades"}
             >
               {" "}
-              Skills{" "}
+              Habilidades{" "}
             </TabButton>
             <TabButton
-              selectTab={() => handleTabChange("education")}
-              active={tab === "education"}
+              selectTab={() => handleTabChange("Educación")}
+              active={tab === "Educación"}
             >
               {" "}
-              Education{" "}
+              Educación{" "}
             </TabButton>
             <TabButton
-              selectTab={() => handleTabChange("certifications")}
-              active={tab === "certifications"}
+              selectTab={() => handleTabChange("Certificaciones")}
+              active={tab === "Certificaciones"}
             >
               {" "}
-              Certifications{" "}
+              Certificaciones{" "}
             </TabButton>
           </div>
           <div className="mt-8">

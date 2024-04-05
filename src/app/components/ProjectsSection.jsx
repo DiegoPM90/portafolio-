@@ -7,62 +7,54 @@ import { motion, useInView } from "framer-motion";
 const projectsData = [
   {
     id: 1,
-    title: "React Portfolio Website",
-    description: "Project 1 description",
+    title: "Proyecto Landing",
+    description: "Landing de Informacion y Venta",
     image: "/images/projects/1.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
-    previewUrl: "/",
+    tag: ["Todos los proyectos", "Web", "Mobile"],
+    gitUrl: "https://github.com/DiegoPM90/proyecto",
+    previewUrl: "https://landingdetelas.netlify.app/",
   },
   {
     id: 2,
-    title: "Potography Portfolio Website",
-    description: "Project 2 description",
+    title: "Proyecto CRUD",
+    description: "Sistema de registro de usuarios",
     image: "/images/projects/2.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
-    previewUrl: "/",
+    tag: ["Todos los proyectos", "Web", "Mobile"],
+    gitUrl: "https://github.com/DiegoPM90/proyecto-crud",
+    previewUrl: "https://app.netlify.com/sites/crudproyecto2023/overview",
   },
   {
     id: 3,
-    title: "E-commerce Application",
-    description: "Project 3 description",
+    title: "Proyecto API",
+    description: "Adopción amimal",
     image: "/images/projects/3.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
-    previewUrl: "/",
+    tag: ["Todos los proyectos", "Web", "Mobile"],
+    gitUrl: "https://github.com/DiegoPM90/Proyecto-3",
+    previewUrl: "https://buscapatitas.netlify.app/",
   },
   {
     id: 4,
-    title: "Food Ordering Application",
-    description: "Project 4 description",
+    title: "La ratita Gamer",
+    description: "Restaurante de Pizza y Juegos de Video",
     image: "/images/projects/4.png",
-    tag: ["All", "Mobile"],
-    gitUrl: "/",
-    previewUrl: "/",
+    tag: ["Todos los proyectos", "Web", "Mobile"],
+    gitUrl: "https://github.com/DiegoPM90/Proyecto4DWFS",
+    previewUrl: "https://ratitagamer.netlify.app/",
   },
   {
     id: 5,
-    title: "React Firebase Template",
-    description: "Authentication and CRUD operations",
+    title: "Proyecto CLan",
+    description: "Intercambio de cuentas de Suscripción",
     image: "/images/projects/5.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
-    previewUrl: "/",
+    tag: ["Todos los proyectos", "Web"],
+    gitUrl: "https://github.com/Pepeoawvh/ClanProjectFront",
+    previewUrl: "https://devclanproject.netlify.app/",
   },
-  {
-    id: 6,
-    title: "Full-stack Roadmap",
-    description: "Project 5 description",
-    image: "/images/projects/6.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
-    previewUrl: "/",
-  },
+
 ];
 
 const ProjectsSection = () => {
-  const [tag, setTag] = useState("All");
+  const [tag, setTag] = useState("Todos los proyectos");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -82,13 +74,13 @@ const ProjectsSection = () => {
   return (
     <section id="projects">
       <h2 className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12">
-        My Projects
+        Mis Proyectos
       </h2>
       <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
         <ProjectTag
           onClick={handleTagChange}
-          name="All"
-          isSelected={tag === "All"}
+          name="Todos los proyectos"
+          isSelected={tag === "Todos los proyectos"}
         />
         <ProjectTag
           onClick={handleTagChange}
@@ -108,7 +100,7 @@ const ProjectsSection = () => {
             variants={cardVariants}
             initial="initial"
             animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.3, delay: index * 0.4 }}
+            transition={{ duration: 0.2, delay: index * 0.3 }}
           >
             <ProjectCard
               key={project.id}
