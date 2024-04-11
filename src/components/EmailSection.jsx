@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { firestoreDB } from "../../firebase/config.js";
+import { firestoreDB } from "../firebase/config.js";
 
 const Form = () => {
   // Creamos un estado para guardar los datos del formulario
